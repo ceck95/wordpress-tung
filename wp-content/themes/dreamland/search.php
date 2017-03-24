@@ -1,0 +1,110 @@
+<?php bunch_global_variable();
+$options = _WSH()->option();
+get_header();
+$style2 = ''; 
+$settings  = _WSH()->option();
+if(dreamland_set($settings, 'search_blog_style')=='blog_style2' || dreamland_set($_GET, 'blog_style') == 'blog_style2' ) $style2 = 'blog_style2'; 
+if(dreamland_set($_GET, 'layout_style')) $layout = dreamland_set($_GET, 'layout_style'); else
+$layout = dreamland_set( $settings, 'search_page_layout', 'right' );
+$sidebar = dreamland_set( $settings, 'search_page_sidebar', 'blog-sidebar' );
+_WSH()->page_settings = array('layout'=>$layout, 'sidebar'=>$sidebar);
+$classes = ( !$layout || $layout == 'full' || dreamland_set($_GET, 'layout_style')=='full' ) ? ' col-lg-12 col-md-12 col-sm-12 col-xs-12 ' : ' col-lg-9 col-md-8 col-sm-7 col-xs-12 ' ;
+$title = dreamland_set($options, 'search_title');
+$bg = dreamland_set($options, 'search_bg');
+$layout = ( $layout ) ? $layout : 'right';
+$sidebar = ( $sidebar ) ? $sidebar : 'default-sidebar';
+?>
+<!--Page Title-->
+<section class="page-title" <?php if($bg):?>style="background-image:url('<?php echo esc_url($bg);?>');"<?php endif;?>>
+	<div class="auto-container">
+		<div class="content-box">
+			<h1><?php if($title) echo balanceTags($title); else wp_title('');?></h1>
+			<div class="bread-crumb">
+				<?php echo dreamland_get_the_breadcrumb();?>
+			</div>
+		</div>
+	</div>
+</section>
+<!--Sidebar Page-->
+<div class="sidebar-page">
+    <div class="auto-container">
+    	<div class="row clearfix">
+            <!--Sidebar-->	
+            <?php if( $layout == 'left' ): ?>
+            
+				<?php if ( is_active_sidebar( $sidebar ) ) { ?>
+                    <div class="col-lg-3 col-md-4 col-sm-5 col-xs-12">
+                        <aside class="sidebar">
+                            <?php dynamic_sidebar( $sidebar ); ?>
+                        </aside>
+                    
+                    </div>
+                <?php }?>
+		    <?php endif; ?>
+            <!--Sidebar-->
+            
+            <!--Content Side-->	
+            <div class="<?php echo esc_attr($classes);?>">
+                <section class="blog-container<?php if($style2) echo ' two-col';?>">
+				
+				<!--Content Side-->	
+            	<?php if(have_posts()):?>
+                    
+                    <?php while( have_posts() ): the_post();?>
+					<?php if($style2):?>
+						<!--Blog Post-->
+						<div class="col-md-6 col-sm-12 col-xs-12 blog-post wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1500ms">
+							<div id="post-<?php the_ID(); ?>" <?php post_class();?>>
+								<?php get_template_part( 'blog', 'twocolumn' ); ?>
+								<!-- blog post item -->
+							</div><!-- End Post -->
+						</div>
+					<?php else:?>
+						<!--Blog Post-->
+                        <div id="post-<?php the_ID(); ?>" <?php post_class();?>>
+                            <?php get_template_part( 'blog' ); ?>
+                        </div>
+					<?php endif;?>
+                    <?php endwhile;?>
+				
+				<?php else : ?>
+					<div class="<?php echo esc_attr($classes);?> search_post_area">
+						<p><?php esc_html_e( 'It seems we can&rsquo;t find what you&rsquo;re looking for. Perhaps searching can help.', 'dreamland' ); ?></p>
+						<aside>
+						<?php get_search_form(); ?>
+						</aside>
+					</div>
+				<?php endif; ?>
+                
+				</section>
+                
+                <br>
+                <!--Pagination-->
+                <div class="pager-outer">
+                	<ul class="pagination">
+                    	<?php dreamland_the_pagination(); ?>
+                    </ul>
+                </div>
+            
+            </div>
+            <!--Content Side-->
+            
+            <!--Sidebar-->	
+            <?php if( $layout == 'right' ): ?>
+            
+				<?php if ( is_active_sidebar( $sidebar ) ) { ?>
+                    <div class="col-lg-3 col-md-4 col-sm-5 col-xs-12">
+                        <aside class="sidebar">
+                            <?php dynamic_sidebar( $sidebar ); ?>
+                        </aside>
+                    
+                    </div>
+                <?php }?>
+		    <?php endif; ?>
+            <!--Sidebar-->
+            
+        </div>
+    </div>
+</div>
+<?php if(dreamland_set($options, 'show_vc_footer')) get_template_part('footer', 'black');?>
+<?php get_footer(); ?>
