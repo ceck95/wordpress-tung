@@ -3,7 +3,7 @@
 // @Date:   2017-03-24T10:45:10+07:00
 // @Email:  tranvannhut4495@gmail.com
 # @Last modified by:   nhutdev
-# @Last modified time: 2017-03-31T11:20:57+07:00
+# @Last modified time: 2017-03-31T11:23:01+07:00
 
 /** Set ABSPATH for execution */
 define('ABSPATH', dirname(dirname(__FILE__)).'/');
@@ -174,9 +174,9 @@ ob_start(); ?>
 
 .btn-style-one,
 .scroll-to-top:hover,
-.header-style-one .logo:before,
+.header-style-one,
 .header-style-one .main-menu .navigation > li > ul > li:hover > a,
-.header-style-two .header-lower,
+.header-style-two,
 .header-style-two .main-menu .navigation > li > a:before,
 .main-menu .navbar-collapse > ul > li.current-menu-parent > a:before,
 .header-style-two .main-menu .navigation > li > ul > li:hover > a,
