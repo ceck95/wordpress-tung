@@ -1,131 +1,168 @@
 <?php
-
+// @Author: Tran Van Nhut <nhutdev>
+// @Date:   2017-03-24T10:45:10+07:00
+// @Email:  tranvannhut4495@gmail.com
+# @Last modified by:   nhutdev
+# @Last modified time: 2017-03-31T11:20:57+07:00
 
 /** Set ABSPATH for execution */
-define( 'ABSPATH', dirname(dirname(__FILE__)) . '/' );
-define( 'WPINC', 'wp-includes' );
-
-
-/**
- * @ignore
- */
-function add_filter() {}
+define('ABSPATH', dirname(dirname(__FILE__)).'/');
+define('WPINC', 'wp-includes');
 
 /**
  * @ignore
  */
-function esc_attr($str) {return $str;}
+function add_filter()
+{
+}
 
 /**
  * @ignore
  */
-function apply_filters() {}
+function esc_attr($str)
+{
+    return $str;
+}
 
 /**
  * @ignore
  */
-function get_option() {}
+function apply_filters()
+{
+}
 
 /**
  * @ignore
  */
-function is_lighttpd_before_150() {}
+function get_option()
+{
+}
 
 /**
  * @ignore
  */
-function add_action() {}
+function is_lighttpd_before_150()
+{
+}
 
 /**
  * @ignore
  */
-function did_action() {}
+function add_action()
+{
+}
 
 /**
  * @ignore
  */
-function do_action_ref_array() {}
+function did_action()
+{
+}
 
 /**
  * @ignore
  */
-function get_bloginfo() {}
+function do_action_ref_array()
+{
+}
 
 /**
  * @ignore
  */
-function is_admin() {return true;}
+function get_bloginfo()
+{
+}
 
 /**
  * @ignore
  */
-function site_url() {}
+function is_admin()
+{
+    return true;
+}
 
 /**
  * @ignore
  */
-function admin_url() {}
+function site_url()
+{
+}
 
 /**
  * @ignore
  */
-function home_url() {}
+function admin_url()
+{
+}
 
 /**
  * @ignore
  */
-function includes_url() {}
+function home_url()
+{
+}
 
 /**
  * @ignore
  */
-function wp_guess_url() {}
+function includes_url()
+{
+}
 
-if ( ! function_exists( 'json_encode' ) ) :
 /**
  * @ignore
  */
-function json_encode() {}
+function wp_guess_url()
+{
+}
+
+if (!function_exists('json_encode')) :
+/**
+ * @ignore
+ */
+function json_encode()
+{
+}
 endif;
 
-
-
 /* Convert hexdec color string to rgb(a) string */
- 
-function hex2rgba($color, $opacity = false) {
- 
-	$default = 'rgb(0,0,0)';
- 
-	//Return default if no color provided
-	if(empty($color))
-          return $default; 
- 
-	//Sanitize $color if "#" is provided 
-        if ($color[0] == '#' ) {
-        	$color = substr( $color, 1 );
+
+function hex2rgba($color, $opacity = false)
+{
+    $default = 'rgb(0,0,0)';
+
+    //Return default if no color provided
+    if (empty($color)) {
+        return $default;
+    }
+
+    //Sanitize $color if "#" is provided
+        if ($color[0] == '#') {
+            $color = substr($color, 1);
         }
- 
+
         //Check if color has 6 or 3 characters and get values
         if (strlen($color) == 6) {
-                $hex = array( $color[0] . $color[1], $color[2] . $color[3], $color[4] . $color[5] );
-        } elseif ( strlen( $color ) == 3 ) {
-                $hex = array( $color[0] . $color[0], $color[1] . $color[1], $color[2] . $color[2] );
+            $hex = array($color[0].$color[1], $color[2].$color[3], $color[4].$color[5]);
+        } elseif (strlen($color) == 3) {
+            $hex = array($color[0].$color[0], $color[1].$color[1], $color[2].$color[2]);
         } else {
-                return $default;
+            return $default;
         }
- 
+
         //Convert hexadec to rgb
-        $rgb =  array_map('hexdec', $hex);
- 
+        $rgb = array_map('hexdec', $hex);
+
         //Check if opacity is set(rgba or rgb)
-        if($opacity){
-        	if(abs($opacity) > 1)
-        		$opacity = 1.0;
-        	$output = 'rgba('.implode(",",$rgb).','.$opacity.')';
+        if ($opacity) {
+            if (abs($opacity) > 1) {
+                $opacity = 1.0;
+            }
+            $output = 'rgba('.implode(',', $rgb).','.$opacity.')';
         } else {
-        	$output = 'rgb('.implode(",",$rgb).')';
+            $output = 'rgb('.implode(',', $rgb).')';
         }
- 
+
         //Return rgb(a) color string
         return $output;
 }
@@ -139,7 +176,7 @@ ob_start(); ?>
 .scroll-to-top:hover,
 .header-style-one .logo:before,
 .header-style-one .main-menu .navigation > li > ul > li:hover > a,
-.header-style-two .header-lower .logo,
+.header-style-two .header-lower,
 .header-style-two .main-menu .navigation > li > a:before,
 .main-menu .navbar-collapse > ul > li.current-menu-parent > a:before,
 .header-style-two .main-menu .navigation > li > ul > li:hover > a,
@@ -279,7 +316,7 @@ a,
 	border-bottom-color: #<?php echo $green; ?> !important;
 }
 .sidebar .sidebar-title:before{
-	border-top-color: #<?php echo $green;?> !important;
+	border-top-color: #<?php echo $green; ?> !important;
 }
 
 .main-slider .bg-green{
@@ -298,12 +335,12 @@ a,
 	background-color: #ffffff !important;
 	color:#<?php echo $green; ?> !important;
 }
-<?php 
+<?php
 
 $out = ob_get_clean();
 $expires_offset = 31536000; // 1 year
 header('Content-Type: text/css; charset=UTF-8');
-header('Expires: ' . gmdate( "D, d M Y H:i:s", time() + $expires_offset ) . ' GMT');
+header('Expires: '.gmdate('D, d M Y H:i:s', time() + $expires_offset).' GMT');
 header("Cache-Control: public, max-age=$expires_offset");
 header('Vary: Accept-Encoding'); // Handle proxies
 header('Content-Encoding: gzip');
